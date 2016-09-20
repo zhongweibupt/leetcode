@@ -27,12 +27,4 @@ public class Solution {
 		}
 		throw new IllegalArgumentException("No Solution.");
     }
-
-	public static void main(String args[]) {
-		int[] nums = {3};
-		int target = 5;
-		
-		Solution s = new Solution();
-		System.out.println(s.search(nums, target));
-	}
 }

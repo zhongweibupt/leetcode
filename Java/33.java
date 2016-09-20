@@ -40,12 +40,4 @@ public class Solution {
         
 		return -1;
     }
-	
-	public static void main(String args[]) {
-		int[] nums = {3};
-		int target = 5;
-		
-		Solution s = new Solution();
-		System.out.println(s.search(nums, target));
-	}
 }

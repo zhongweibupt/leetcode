@@ -81,11 +81,4 @@ public class Solution {
 		qsort(nums, first, i - 1);
 		qsort(nums, i + 1, last);
 	}
-
-	public static void main(String args[]) {
-		int[] nums = {-1,-4,2,5,7,1};
-		
-		Solution s = new Solution();
-		System.out.println(s.threeSumClosest(nums, 1));
-	}
 }
