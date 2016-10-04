@@ -100,11 +100,15 @@ public class Heap<T> {
 		return new LinkedList<T>(this.data);
 	}
 	
-	public void add(T element) {
+	public void push(T element) {
 		if(comparator.compare(data.get(0), element) > 0) {
 			data.set(0, element);
 			adjustHeap(0, comparator);
 		}
+	}
+
+	public T pop() {
+		
 	}
 	
 	public static void main(String args[]) {
@@ -113,7 +117,7 @@ public class Heap<T> {
 		HeapComparator<Integer> comparator = new HeapComparator<Integer>();
 		Heap<Integer> heap = new Heap<Integer>(10, comparator);
 		for(int i : a) {
-			heap.add(i);
+			heap.push(i);
 			System.out.println(heap.getData());
 		}
 		
