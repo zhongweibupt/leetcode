@@ -17,18 +17,13 @@ import java.util.List;
 * @date 2016年10月1日
 * @version 1.0
 */
-class HeapComparator<T> implements Comparator<Integer> {
-
+class MinComparator<T> implements Comparator<Integer> {
 	/* (non-Javadoc)
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public int compare(Integer a, Integer b) {
 		// TODO Auto-generated method stub
-		if(b == null)
-			return -1;
-		if(a == null)
-			return 1;
 		
 		if(a < b) {
 			return 1;
@@ -43,15 +38,19 @@ class HeapComparator<T> implements Comparator<Integer> {
 public class Heap<T> {
 	private int k;
 	private List<T> data;
-	private Comparator<T> comparator;
+	private T max;
+	private T min;
+	private Comparator comparator;
 	
-	public Heap(int k, Comparator<T> comparator) {
+	public Heap(int k, T min, T max, Comparator comparator) {
 		this.k = k;
 		this.data = new ArrayList<T>();
+		this.min = min;
+		this.max = max;
+		this.comparator = new MinComparator();
 		for(int i = 0; i < k; i++) {
-			this.data.add(null);
+			this.data.add(this.min);
 		}
-		this.comparator = comparator;
 	}
 	
 	protected void adjustHeap(int i, Comparator<T> comparator) {
@@ -101,26 +100,33 @@ public class Heap<T> {
 	}
 	
 	public void push(T element) {
-		if(comparator.compare(data.get(0), element) > 0) {
+		if(comparator.compare(data.get(0), element) > 0 || data.get(0) == null) {
 			data.set(0, element);
 			adjustHeap(0, comparator);
 		}
 	}
-
+	
 	public T pop() {
-		
+		T result = data.get(0);
+		data.set(0, this.max);
+		adjustHeap(0, comparator);
+		return result;
 	}
 	
 	public static void main(String args[]) {
 		int[] a = {12,1,5425,12,43,734,343,999,8,99,55,2,222,444,11};
 		
-		HeapComparator<Integer> comparator = new HeapComparator<Integer>();
-		Heap<Integer> heap = new Heap<Integer>(10, comparator);
+		Heap<Integer> heap = new Heap<Integer>(10, Integer.MIN_VALUE, Integer.MAX_VALUE, new MinComparator());
 		for(int i : a) {
 			heap.push(i);
 			System.out.println(heap.getData());
+			
 		}
 		
 		System.out.println(heap.getData());
+		
+		for(int i = 0; i < 10; i++) {
+			System.out.println(heap.pop());
+		}
 	}
 }
